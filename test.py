@@ -6,7 +6,6 @@ from unittest import mock
 
 
 class Testing(unittest.TestCase):
-
     @unittest.mock.patch('sys.stdout', new_callable=StringIO)
     def test_replace_task(self, mock_stdout):
         test_data_1 = """5 6
@@ -30,6 +29,20 @@ class Testing(unittest.TestCase):
         1 1
         """
 
+        test_data_4 = """10 10
+        1 9 7 6 2 4 7 8 1 3
+        10 10
+        3 5
+        6 7
+        1 10
+        6 6
+        3 3
+        6 7
+        2 2
+        4 9
+        1 9"""
+
+
         expected_data_1 = """-1
         0
         1
@@ -44,7 +57,18 @@ class Testing(unittest.TestCase):
 
         expected_data_3 = 0
 
-        for time in range(1, 4):
+        expected_data_4 = """-1
+        -1
+        -1
+        0
+        -1
+        -1
+        -1
+        -1
+        -1
+        -1"""
+
+        for time in range(1, 5):
             with mock.patch('builtins.input', side_effect=eval('test_data_'+str(time)).split('\n')):
                 main.start_point()
 
